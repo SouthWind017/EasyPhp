@@ -12,3 +12,11 @@ define('TIMESTAMP', time());
 
 use app\core\Dispatcher;
 use app\core\Database;
+
+/* 加载核心模块 */
+require_once EP_ROOT.'core/Dispatcher.php';
+require_once EP_ROOT.'core/Database.php';
+
+$Dispatcher = new Dispatcher();
+$return_status = $Dispatcher->start();
+
