@@ -13,23 +13,25 @@ class DataBase extends Db
 {
 
     private static $instance;
-
+    private static $dataconfig;
     private function __clone()
     {
 
     }
 
-    public static function getInstance($table)
+    public static function getInstance($table,$dataconfig=[])
     {
+        self::$dataconfig = $dataconfig;
         parent::$tablename = $table;
         if (!(self::$instance instanceof self)) {
             self::$instance = new self();
         }
+
         return self::$instance;
     }
 
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct(self::$dataconfig);
     }
 }

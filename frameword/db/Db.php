@@ -26,8 +26,8 @@ class Db
     protected static $tablename = null; //数据库表名
     private $conn = null;
 
-    public function __construct(){
-
+    public function __construct($params){
+        $this->dataBaseCfg = array_merge($this->dataBaseCfg,$params);
         $this->connect();
 
     }
@@ -35,7 +35,6 @@ class Db
     private function connect(){ //数据库连接
         try {
             $dsn = "{$this->dataBaseCfg['db']}:host={$this->dataBaseCfg['host']};port={$this->dataBaseCfg['port']};dbname={$this->dataBaseCfg['dbname']};charset={$this->dataBaseCfg['charset']}";
-
             //创建PDO对象
             $this->conn = new PDO($dsn,$this->dataBaseCfg['user'],$this->dataBaseCfg['pass']);
             //设置字符集
@@ -105,7 +104,7 @@ class Db
 
 
 
-    public function condition($condition)
+    protected function condition($condition)
     {
         $where = null;
         if (is_array($condition)){
@@ -119,7 +118,7 @@ class Db
 
         return $where;
     }
-    public function field($data)
+    protected function field($data)
     {
 
         $field = null;
